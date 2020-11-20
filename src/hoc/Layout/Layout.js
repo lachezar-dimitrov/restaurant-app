@@ -31,8 +31,6 @@ class Layout extends Component {
           closed={this.sideDrawerClosedHandler}
         />
 
-        <div> Toolbar, SideDrawer, BackDrop</div>
-
         <main className={classes.Content}>{this.props.children}</main>
       </Aux>
     );
