@@ -1,8 +1,8 @@
 import axios from 'axios';
 import {
   SET_AUTH_REDIRECT_PATH,
+  AUTH_INITIATE_LOGOUT,
   AUTH_SUCCESS,
-  AUTH_LOGOUT,
   AUTH_START,
   AUTH_FAIL,
 } from './actionTypes';
@@ -25,15 +25,9 @@ const authFail = (error) => ({
   error,
 });
 
-export const logout = () => {
-  localStorage.removeItem('idToken');
-
-  localStorage.removeItem('expirationDate');
-
-  localStorage.removeItem('userId');
-
-  return { type: AUTH_LOGOUT };
-};
+export const logout = () => ({
+  type: AUTH_INITIATE_LOGOUT,
+});
 
 const checkAuthTimeout = (expirationTime) => (dispatch) =>
   setTimeout(() => dispatch(logout()), expirationTime * 1000);
