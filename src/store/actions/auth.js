@@ -1,19 +1,19 @@
-import axios from 'axios';
 import {
   SET_AUTH_REDIRECT_PATH,
   AUTH_INITIATE_LOGOUT,
+  AUTH_CHECK_TIMEOUT,
   AUTH_SUCCESS,
   AUTH_LOGOUT,
   AUTH_START,
   AUTH_FAIL,
-  AUTH_CHECK_TIMEOUT,
+  AUTH_USER,
 } from './actionTypes';
 
 const authStart = () => ({
   type: AUTH_START,
 });
 
-const authSuccess = (idToken, userId) => ({
+export const authSuccess = (idToken, userId) => ({
   type: AUTH_SUCCESS,
 
   idToken,
@@ -21,7 +21,7 @@ const authSuccess = (idToken, userId) => ({
   userId,
 });
 
-const authFail = (error) => ({
+export const authFail = (error) => ({
   type: AUTH_FAIL,
 
   error,
@@ -35,59 +35,21 @@ export const logoutSucceed = () => ({
   type: AUTH_LOGOUT,
 });
 
-const checkAuthTimeout = (expirationTime) => ({
+export const checkAuthTimeout = (expirationTime) => ({
   type: AUTH_CHECK_TIMEOUT,
 
   expirationTime,
 });
 
-export const auth = (email, password, isSignup) => (dispatch) => {
-  dispatch(authStart());
+export const auth = (email, password, isSignup) => ({
+  type: AUTH_USER,
 
-  const BASE_AUTH_URL = `https://identitytoolkit.googleapis.com/v1/accounts:`;
+  email,
 
-  const SIGN_UP_KEY_WORD = `signUp?key=`;
+  password,
 
-  const SIGN_IN_KEY_WORD = `signInWithPassword?key=`;
-
-  const API_KEY = 'AIzaSyBNdxQdmYvI80d4nPxW60s4OCuwGkrgVpY';
-
-  let URL = BASE_AUTH_URL;
-
-  isSignup ? (URL += SIGN_UP_KEY_WORD) : (URL += SIGN_IN_KEY_WORD);
-
-  URL += API_KEY;
-
-  const authData = {
-    email,
-
-    password,
-
-    returnSecureToken: true,
-  };
-
-  axios
-
-    .post(URL, authData)
-
-    .then(({ data }) => {
-      const expiresIn = data.expiresIn;
-
-      const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
-
-      localStorage.setItem('expirationDate', expirationDate);
-
-      localStorage.setItem('idToken', data.idToken);
-
-      localStorage.setItem('userId', data.localId);
-
-      dispatch(authSuccess(data.idToken, data.localId));
-
-      dispatch(checkAuthTimeout(expiresIn));
-    })
-
-    .catch(({ response }) => dispatch(authFail(response.data.error)));
-};
+  isSignup,
+});
 
 export const setAuthRedirectPath = (authRedirectPath) => ({
   type: SET_AUTH_REDIRECT_PATH,
