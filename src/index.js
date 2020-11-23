@@ -1,9 +1,9 @@
+import { watchAuth, watchBurgerBuilder, watchOrder } from './store/sagas/index';
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import burgerBuilderReducer from './store/reducers/burgerBuilder';
 import registerServiceWorker from './registerServiceWorker';
 import orderReducer from './store/reducers/order';
 import { BrowserRouter } from 'react-router-dom';
-import { logoutSaga } from './store/sagas/auth';
 import authReducer from './store/reducers/auth';
 import createSagaMiddleware from 'redux-saga';
 import { Provider } from 'react-redux';
@@ -30,7 +30,11 @@ const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk, sagaMiddleware)));
 
-sagaMiddleware.run(logoutSaga);
+sagaMiddleware.run(watchAuth);
+
+sagaMiddleware.run(watchBurgerBuilder);
+
+sagaMiddleware.run(watchOrder);
 
 const app = (
   <Provider store={store}>
