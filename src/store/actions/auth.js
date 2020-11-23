@@ -2,6 +2,7 @@ import {
   SET_AUTH_REDIRECT_PATH,
   AUTH_INITIATE_LOGOUT,
   AUTH_CHECK_TIMEOUT,
+  AUTH_CHECK_STATE,
   AUTH_SUCCESS,
   AUTH_LOGOUT,
   AUTH_START,
@@ -57,23 +58,6 @@ export const setAuthRedirectPath = (authRedirectPath) => ({
   authRedirectPath,
 });
 
-export const authCheckState = () => (dispatch) => {
-  const idToken = localStorage.getItem('idToken');
-
-  if (!idToken) dispatch(logout());
-  else {
-    const expirationDate = new Date(localStorage.getItem('expirationDate'));
-
-    const now = new Date();
-
-    if (expirationDate <= now) {
-      dispatch(logout());
-    } else {
-      const userId = localStorage.getItem('userId');
-
-      dispatch(authSuccess(idToken, userId));
-
-      dispatch(checkAuthTimeout((expirationDate.getTime() - now.getTime()) / 1000));
-    }
-  }
-};
+export const authCheckState = () => ({
+  type: AUTH_CHECK_STATE,
+});

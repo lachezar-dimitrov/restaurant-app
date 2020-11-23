@@ -71,3 +71,24 @@ export function* authUserSaga({ email, password, isSignup }) {
     yield put(authFail(response.data.error));
   }
 }
+
+export function* authCheckStateSaga() {
+  const idToken = yield localStorage.getItem('idToken');
+
+  if (!idToken) yield put(logout());
+  else {
+    const expirationDate = yield new Date(localStorage.getItem('expirationDate'));
+
+    const now = yield new Date();
+
+    if (expirationDate <= now) {
+      yield put(logout());
+    } else {
+      const userId = yield localStorage.getItem('userId');
+
+      yield put(authSuccess(idToken, userId));
+
+      yield put(checkAuthTimeout((expirationDate.getTime() - now.getTime()) / 1000));
+    }
+  }
+}
