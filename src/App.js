@@ -1,24 +1,25 @@
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
 import BurgerBuilder from './containers/BurgerBuilder/BulgerBuilder';
-import asyncComponent from './hoc/asyncComponent/asyncComponent';
 import { authCheckState } from './store/actions/index';
+import Spinner from './components/UI/Spinner/Spinner';
 import Logout from './containers/Auth/Logout/Logout';
-import React, { useEffect } from 'react';
+import React, { useEffect, Suspense } from 'react';
 import Layout from './hoc/Layout/Layout';
 import { connect } from 'react-redux';
 
-const asyncCheckout = asyncComponent(() => import('./containers/Checkout/Checkout'));
+const Checkout = React.lazy(() => import('./containers/Checkout/Checkout'));
 
-const asyncOrders = asyncComponent(() => import('./containers/Orders.js/Orders'));
+const Orders = React.lazy(() => import('./containers/Orders.js/Orders'));
 
-const asyncAuth = asyncComponent(() => import('./containers/Auth/Auth'));
+const Auth = React.lazy(() => import('./containers/Auth/Auth'));
 
 const app = (props) => {
   useEffect(() => props.onTryAutoSignup(), []);
 
   let routes = (
     <Switch>
-      <Route path='/auth' component={asyncAuth} />
+      {/* <Route path='/auth' component={Auth} /> */}
+      <Route path='/auth' render={() => <Auth />} />
 
       <Route path='/' exact component={BurgerBuilder} />
 
@@ -29,13 +30,16 @@ const app = (props) => {
   if (props.isAuthenticated) {
     routes = (
       <Switch>
-        <Route path='/checkout' component={asyncCheckout} />
+        {/* <Route path='/checkout' component={Checkout} /> */}
+        <Route path='/checkout' render={() => <Checkout />} />
 
-        <Route path='/orders' exact component={asyncOrders} />
+        {/* <Route path='/orders' exact component={Orders} /> */}
+        <Route path='/orders' exact render={() => <Orders />} />
 
         <Route path='/logout' component={Logout} />
 
-        <Route path='/auth' component={asyncAuth} />
+        {/* <Route path='/auth' component={Auth} /> */}
+        <Route path='/auth' render={() => <Auth />} />
 
         <Route path='/' exact component={BurgerBuilder} />
       </Switch>
@@ -44,7 +48,9 @@ const app = (props) => {
 
   return (
     <div>
-      <Layout>{routes}</Layout>
+      <Layout>
+        <Suspense fallback={<Spinner />}>{routes}</Suspense>
+      </Layout>
     </div>
   );
 };
