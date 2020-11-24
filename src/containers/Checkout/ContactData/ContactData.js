@@ -10,6 +10,8 @@ import classes from './ContactData.css';
 import { connect } from 'react-redux';
 
 const contactData = (props) => {
+  const [formIsValid, setFormIsValid] = useState(false);
+
   const [orderForm, setOrderFrom] = useState({
     name: formConfigure('Your name'),
 
@@ -51,8 +53,6 @@ const contactData = (props) => {
       valid: true,
     },
   });
-
-  const [formIsValid, setFormIsValid] = useState(false);
 
   const orderHandler = (event) => {
     event.preventDefault();
