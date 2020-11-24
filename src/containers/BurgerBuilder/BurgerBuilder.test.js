@@ -1,5 +1,5 @@
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
-import { BurgerBuilder } from './BulgerBuilder';
+import { BurgerBuilder as burgerBuilder } from './BulgerBuilder';
 import Adapter from 'enzyme-adapter-react-16';
 import { configure, shallow } from 'enzyme';
 import React from 'react';
@@ -10,7 +10,7 @@ describe('<BurgerBuilder />', () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = shallow(<BurgerBuilder onInitIngredients={() => {}} />);
+    wrapper = shallow(<burgerBuilder onInitIngredients={() => {}} />);
   });
 
   it('should render <BuildControls /> when receiving ingredients', () => {
