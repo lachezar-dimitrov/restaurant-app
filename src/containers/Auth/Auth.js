@@ -8,7 +8,15 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import classes from './Auth.css';
 
-const auth = (props) => {
+const auth = ({
+  onSetAuthRedirectPath,
+  authRedirectPath,
+  isAuthenticated,
+  buildingBurger,
+  loading,
+  onAuth,
+  error,
+}) => {
   const [isSignup, setIsSignup] = useState(false);
 
   const [authForm, setAuthForm] = useState({
@@ -58,8 +66,8 @@ const auth = (props) => {
   });
 
   useEffect(() => {
-    if (!props.buildingBurger && props.authRedirectPath !== '/') props.onSetAuthRedirectPath();
-  }, []);
+    if (!buildingBurger && authRedirectPath !== '/') onSetAuthRedirectPath();
+  }, [buildingBurger, authRedirectPath, onSetAuthRedirectPath]);
 
   const inputChangedHandler = (event, controlName) => {
     const updatedControls = updateObject(authForm, {
@@ -84,7 +92,7 @@ const auth = (props) => {
 
     const isSignup = isSignup;
 
-    props.onAuth(email, password, isSignup);
+    onAuth(email, password, isSignup);
   };
 
   const switchAuthModeHandler = () => setIsSignup(!isSignup);
@@ -112,11 +120,11 @@ const auth = (props) => {
     />
   ));
 
-  if (props.loading) form = <Spinner />;
+  if (loading) form = <Spinner />;
 
-  const errorMessage = props.error ? <p>{props.error.message}</p> : null;
+  const errorMessage = error ? <p>{error.message}</p> : null;
 
-  const authRedirect = props.isAuthenticated ? <Redirect to={props.authRedirectPath} /> : null;
+  const authRedirect = isAuthenticated ? <Redirect to={authRedirectPath} /> : null;
 
   return (
     <div className={classes.Auth}>

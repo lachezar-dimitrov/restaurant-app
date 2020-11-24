@@ -6,18 +6,18 @@ import React, { useEffect } from 'react';
 import axios from '../../axios-orders';
 import { connect } from 'react-redux';
 
-const orders = (props) => {
-  useEffect(() => props.onFetchOrders(props.idToken, props.userId), []);
+const orders = ({ idToken, userId, loading, orders, onFetchOrders }) => {
+  useEffect(() => onFetchOrders(idToken, userId), [onFetchOrders, idToken, userId]);
 
-  let orders = <Spinner />;
+  let ordersComponent = <Spinner />;
 
-  if (!props.loading) {
-    orders = props.orders.map((order) => (
+  if (!loading) {
+    ordersComponent = orders.map((order) => (
       <Order key={order.id} ingredients={order.ingredients} price={order.price} />
     ));
   }
 
-  return <div>{orders}</div>;
+  return <div>{ordersComponent}</div>;
 };
 
 const mapStateToProps = (state) => ({

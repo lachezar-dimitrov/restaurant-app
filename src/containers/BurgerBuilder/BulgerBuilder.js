@@ -15,32 +15,43 @@ import {
   purchaseInit,
 } from '../../store/actions/index';
 
-export const burgerBuilder = (props) => {
+export const burgerBuilder = ({
+  onIngredientRemoved,
+  onIngredientAdded,
+  onSetRedirectPath,
+  onInitIngredients,
+  isAuthenticated,
+  onInitPurchase,
+  ingredients,
+  totalPrice,
+  history,
+  error,
+}) => {
   const [purchasing, setPurchasing] = useState(false);
 
-  useEffect(() => props.onInitIngredients(), []);
+  useEffect(() => onInitIngredients(), [onInitIngredients]);
 
   const updatePurchasable = (ingredients) =>
     Object.values(ingredients).reduce((sum, element) => sum + element, 0) > 0;
 
   const purchaseHandler = () => {
-    if (props.isAuthenticated) setPurchasing(true);
+    if (isAuthenticated) setPurchasing(true);
     else {
-      props.onSetRedirectPath('/checkout');
+      onSetRedirectPath('/checkout');
 
-      props.history.push('/auth');
+      history.push('/auth');
     }
   };
 
   const purchaseCancelHandler = () => setPurchasing(false);
 
   const purchaseContinueHandler = () => {
-    props.onInitPurchase();
+    onInitPurchase();
 
-    props.history.push('/checkout');
+    history.push('/checkout');
   };
 
-  const disabledInfo = { ...props.ingredients };
+  const disabledInfo = { ...ingredients };
 
   for (const key in disabledInfo) {
     disabledInfo[key] = disabledInfo[key] <= 0;
@@ -48,29 +59,29 @@ export const burgerBuilder = (props) => {
 
   let orderSummary = null;
 
-  let burger = props.error ? <p>Ingredients cant be loaded!</p> : <Spinner />;
+  let burger = error ? <p>Ingredients cant be loaded!</p> : <Spinner />;
 
-  if (props.ingredients) {
+  if (ingredients) {
     burger = (
       <>
-        <Burger ingredients={props.ingredients} />
+        <Burger ingredients={ingredients} />
 
         <BuildControls
-          ingredientAdded={props.onIngredientAdded}
-          ingredientRemove={props.onIngredientRemoved}
+          ingredientAdded={onIngredientAdded}
+          ingredientRemove={onIngredientRemoved}
           disabled={disabledInfo}
-          purchasable={updatePurchasable(props.ingredients)}
+          purchasable={updatePurchasable(ingredients)}
           ordered={purchaseHandler}
-          isAuth={props.isAuthenticated}
-          price={props.totalPrice}
+          isAuth={isAuthenticated}
+          price={totalPrice}
         />
       </>
     );
 
     orderSummary = (
       <OrderSummary
-        ingredients={props.ingredients}
-        price={props.totalPrice}
+        ingredients={ingredients}
+        price={totalPrice}
         cancel={purchaseCancelHandler}
         continue={purchaseContinueHandler}
       />
