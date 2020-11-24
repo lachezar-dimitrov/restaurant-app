@@ -1,47 +1,47 @@
 import Button from '../../UI/Button/Button';
-import React, { Component } from 'react';
-import Aux from '../../../hoc/Aux/Aux';
 import PropTypes from 'prop-types';
+import React from 'react';
 
-class OrderSummary extends Component {
-  render() {
-    const ingredientSummary = Object.keys(this.props.ingredients).map((key) => (
-      <li key={key}>
-        <span style={{ textTransform: 'capitalize' }}>{key}</span>: {this.props.ingredients[key]}
-      </li>
-    ));
+const orderSummary = (props) => {
+  const ingredientSummary = Object.keys(props.ingredients).map((key) => (
+    <li key={key}>
+      <span style={{ textTransform: 'capitalize' }}>{key}</span>: {props.ingredients[key]}
+    </li>
+  ));
 
-    return (
-      <Aux>
-        <h3>Your Order</h3>
+  return (
+    <>
+      <h3>Your Order</h3>
 
-        <p>A delicious burger with the following ingredients</p>
+      <p>A delicious burger with the following ingredients</p>
 
-        <ul>{ingredientSummary}</ul>
+      <ul>{ingredientSummary}</ul>
 
-        <p>
-          <strong>Total Price: {this.props.price.toFixed(2)} USD</strong>
-        </p>
+      <p>
+        <strong>Total Price: {props.price.toFixed(2)} USD</strong>
+      </p>
 
-        <p>Continue to checkout?</p>
+      <p>Continue to checkout?</p>
 
-        <Button buttonType='Danger' clicked={this.props.cancel}>
-          CANCEL
-        </Button>
+      <Button buttonType='Danger' clicked={props.cancel}>
+        CANCEL
+      </Button>
 
-        <Button buttonType='Success' clicked={this.props.continue}>
-          CONTINUE
-        </Button>
-      </Aux>
-    );
-  }
-}
+      <Button buttonType='Success' clicked={props.continue}>
+        CONTINUE
+      </Button>
+    </>
+  );
+};
 
-OrderSummary.propTypes = {
+orderSummary.propTypes = {
   ingredients: PropTypes.object.isRequired,
+
   price: PropTypes.number.isRequired,
+
   cancel: PropTypes.func.isRequired,
+
   continue: PropTypes.func.isRequired,
 };
 
-export default OrderSummary;
+export default orderSummary;
