@@ -17,3 +17,39 @@ export const checkValidity = (value, rules) => {
 
   return isValid;
 };
+
+export const formConfigure = (
+  placeholder,
+
+  elementType = 'input',
+
+  type = 'text',
+
+  value = '',
+
+  validation
+) => {
+  if (!validation || typeof validation !== 'object') {
+    validation = {
+      required: true,
+
+      touched: false,
+    };
+  }
+
+  return {
+    elementType,
+
+    elementConfig: {
+      type,
+
+      placeholder,
+    },
+
+    value,
+
+    valid: false,
+
+    validation,
+  };
+};
