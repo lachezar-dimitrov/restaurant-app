@@ -9,7 +9,7 @@ import React, { useState } from 'react';
 import classes from './ContactData.css';
 import { connect } from 'react-redux';
 
-const contactData = (props) => {
+const ContactData = (props) => {
   const [formIsValid, setFormIsValid] = useState(false);
 
   const [orderForm, setOrderFrom] = useState({
@@ -129,7 +129,7 @@ const contactData = (props) => {
         />
       ))}
 
-      <Button buttonType='Success' clicked={orderHandler} disabled={!formIsValid}>
+      <Button buttonType={'Success'} clicked={orderHandler} disabled={!formIsValid}>
         ORDER
       </Button>
     </form>
@@ -162,4 +162,4 @@ const mapDispatchToProps = (dispatch) => ({
   onOrderBurger: (orderData, idToken) => dispatch(purchaseBurger(orderData, idToken)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(contactData, axios));
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(ContactData, axios));

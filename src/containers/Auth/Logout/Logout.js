@@ -3,13 +3,13 @@ import { Redirect } from 'react-router-dom';
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
-export const logout = ({ onLogout }) => {
+export const Logout = ({ onLogout }) => {
   useEffect(() => onLogout(), [onLogout]);
 
-  return <Redirect to='/' />;
+  return <Redirect to={'/'} />;
 };
 
 const mapDispatchToProps = (dispatch) => ({
   onLogout: () => dispatch(logout()),
 });
-export default connect(null, mapDispatchToProps)(logout);
+export default connect(null, mapDispatchToProps)(Logout);

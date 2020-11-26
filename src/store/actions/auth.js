@@ -10,7 +10,7 @@ import {
   AUTH_USER,
 } from './actionTypes';
 
-const authStart = () => ({
+export const authStart = () => ({
   type: AUTH_START,
 });
 

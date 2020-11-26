@@ -4,15 +4,15 @@ import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import React from 'react';
 
-const checkout = (props) => {
+const Checkout = (props) => {
   const checkoutCancelledHandler = () => props.history.goBack();
 
   const checkoutContinuedHandler = () => props.history.replace('/checkout/contact-data');
 
-  let summary = <Redirect to='/' />;
+  let summary = <Redirect to={'/'} />;
 
   if (props.ingredients) {
-    const purchasedRedirect = props.purchased ? <Redirect to='/' /> : null;
+    const purchasedRedirect = props.purchased ? <Redirect to={'/'} /> : null;
 
     summary = (
       <div>
@@ -38,4 +38,4 @@ const mapStateToProps = (state) => ({
   purchased: state.order.purchased,
 });
 
-export default connect(mapStateToProps)(checkout);
+export default connect(mapStateToProps)(Checkout);

@@ -13,35 +13,33 @@ const Orders = React.lazy(() => import('./containers/Orders.js/Orders'));
 
 const Auth = React.lazy(() => import('./containers/Auth/Auth'));
 
-const app = ({ onTryAutoSignup, isAuthenticated }) => {
+const App = ({ onTryAutoSignup, isAuthenticated }) => {
   useEffect(() => onTryAutoSignup(), [onTryAutoSignup]);
 
   let routes = (
     <Switch>
-      {/* <Route path='/auth' component={Auth} /> */}
-      <Route path='/auth' render={(props) => <Auth {...props} />} />
 
-      <Route path='/' exact component={BurgerBuilder} />
+      <Route path={'/auth'} render={(props) => <Auth {...props} />} />
 
-      <Redirect to='/' />
+      <Route path={'/'} exact component={BurgerBuilder} />
+
+      <Redirect to={'/'} />
     </Switch>
   );
 
   if (isAuthenticated) {
     routes = (
       <Switch>
-        {/* <Route path='/checkout' component={Checkout} /> */}
-        <Route path='/checkout' render={(props) => <Checkout {...props} />} />
 
-        {/* <Route path='/orders' exact component={Orders} /> */}
-        <Route path='/orders' exact render={(props) => <Orders {...props} />} />
+        <Route path={'/checkout'} render={(props) => <Checkout {...props} />} />
 
-        <Route path='/logout' component={Logout} />
+        <Route path={'/orders'} exact render={(props) => <Orders {...props} />} />
 
-        {/* <Route path='/auth' component={Auth} /> */}
-        <Route path='/auth' render={(props) => <Auth {...props} />} />
+        <Route path={'/logout'} component={Logout} />
 
-        <Route path='/' exact component={BurgerBuilder} />
+        <Route path={'/auth'} render={(props) => <Auth {...props} />} />
+
+        <Route path={'/'} exact component={BurgerBuilder} />
       </Switch>
     );
   }
@@ -62,4 +60,4 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onTryAutoSignup: () => dispatch(authCheckState()),
 });
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(app));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

@@ -8,7 +8,7 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import classes from './Auth.css';
 
-const auth = ({
+const Auth = ({
   onSetAuthRedirectPath,
   authRedirectPath,
   isAuthenticated,
@@ -90,8 +90,6 @@ const auth = ({
 
     const password = authForm.password.value;
 
-    const isSignup = isSignup;
-
     onAuth(email, password, isSignup);
   };
 
@@ -135,10 +133,10 @@ const auth = ({
       <form onSubmit={submitHandler}>
         {form}
 
-        <Button buttonType='Success'>SUBMIT</Button>
+        <Button buttonType={'Success'}>SUBMIT</Button>
       </form>
 
-      <Button buttonType='Danger' clicked={switchAuthModeHandler}>
+      <Button buttonType={'Danger'} clicked={switchAuthModeHandler}>
         SWITCH TO SIGN {isSignup ? 'IN' : 'UP'}
       </Button>
     </div>
@@ -163,4 +161,4 @@ const mapDispatchToProps = (dispatch) => ({
   onSetAuthRedirectPath: () => dispatch(setAuthRedirectPath('/')),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(auth);
+export default connect(mapStateToProps, mapDispatchToProps)(Auth);

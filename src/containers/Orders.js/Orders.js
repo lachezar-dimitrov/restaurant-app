@@ -6,7 +6,7 @@ import React, { useEffect } from 'react';
 import axios from '../../axios-orders';
 import { connect } from 'react-redux';
 
-const orders = ({ idToken, userId, loading, orders, onFetchOrders }) => {
+const Orders = ({ idToken, userId, loading, orders, onFetchOrders }) => {
   useEffect(() => onFetchOrders(idToken, userId), [onFetchOrders, idToken, userId]);
 
   let ordersComponent = <Spinner />;
@@ -34,4 +34,4 @@ const mapDispatchToProps = (dispatch) => ({
   onFetchOrders: (idToken, userId) => dispatch(fetchOrders(idToken, userId)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(orders, axios));
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(Orders, axios));

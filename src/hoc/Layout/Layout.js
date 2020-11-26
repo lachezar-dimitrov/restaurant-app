@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import classes from './Layout.css';
 
-const layout = (props) => {
+const Layout = (props) => {
   const [sideDrawerIsVisible, setSideDrawerIsVisible] = useState(false);
 
   const sideDrawerClosedHandler = () => setSideDrawerIsVisible(false);
@@ -30,4 +30,4 @@ const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.idToken !== null,
 });
 
-export default connect(mapStateToProps)(layout);
+export default connect(mapStateToProps)(Layout);

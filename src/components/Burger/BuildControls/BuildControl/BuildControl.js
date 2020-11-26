@@ -1,6 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+/* eslint-disable import/no-unresolved */
 import classes from './BuildControl.css';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 const BuildControl = (props) => {
   return (
