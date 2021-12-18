@@ -1,0 +1,16 @@
+/home/lachezar/Documents/c-sharp/sample1/bin/Debug/net5.0/sample1
+/home/lachezar/Documents/c-sharp/sample1/bin/Debug/net5.0/sample1.deps.json
+/home/lachezar/Documents/c-sharp/sample1/bin/Debug/net5.0/sample1.runtimeconfig.json
+/home/lachezar/Documents/c-sharp/sample1/bin/Debug/net5.0/sample1.runtimeconfig.dev.json
+/home/lachezar/Documents/c-sharp/sample1/bin/Debug/net5.0/sample1.dll
+/home/lachezar/Documents/c-sharp/sample1/bin/Debug/net5.0/ref/sample1.dll
+/home/lachezar/Documents/c-sharp/sample1/bin/Debug/net5.0/sample1.pdb
+/home/lachezar/Documents/c-sharp/sample1/obj/Debug/net5.0/sample1.csproj.AssemblyReference.cache
+/home/lachezar/Documents/c-sharp/sample1/obj/Debug/net5.0/sample1.GeneratedMSBuildEditorConfig.editorconfig
+/home/lachezar/Documents/c-sharp/sample1/obj/Debug/net5.0/sample1.AssemblyInfoInputs.cache
+/home/lachezar/Documents/c-sharp/sample1/obj/Debug/net5.0/sample1.AssemblyInfo.cs
+/home/lachezar/Documents/c-sharp/sample1/obj/Debug/net5.0/sample1.csproj.CoreCompileInputs.cache
+/home/lachezar/Documents/c-sharp/sample1/obj/Debug/net5.0/sample1.dll
+/home/lachezar/Documents/c-sharp/sample1/obj/Debug/net5.0/ref/sample1.dll
+/home/lachezar/Documents/c-sharp/sample1/obj/Debug/net5.0/sample1.pdb
+/home/lachezar/Documents/c-sharp/sample1/obj/Debug/net5.0/sample1.genruntimeconfig.cache
